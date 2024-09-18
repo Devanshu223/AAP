@@ -1,0 +1,143 @@
+/* Centering the form on the page */
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background-color: #f0f4f7;
+    padding: 20px;
+    flex-direction: column;
+  }
+  
+  /* Styling the form */
+  form {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* Styling the input fields */
+  input, select {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Hover effect for input and select fields */
+  input:hover, select:hover {
+    border-color: #03a9f4;
+    box-shadow: 0 4px 8px rgba(0, 169, 244, 0.3);
+  }
+  
+  input:focus, select:focus {
+    outline: none;
+    border-color: #6200ea;
+    box-shadow: 0 4px 8px rgba(98, 0, 234, 0.3);
+  }
+  
+  /* Styling the button */
+  button {
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: #6200ea;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #3700b3;
+    box-shadow: 0 4px 8px rgba(98, 0, 234, 0.3);
+  }
+  
+  /* Styling the result box */
+  .result {
+    margin-top: 16px;
+    background-color: #eef5ff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1800px;
+  }
+  
+  .result h2 {
+    margin-top: 0;
+    color: #6200ea;
+  }
+  
+  /* Styling the description boxes */
+  .description-box,
+  .detailed-description-box {
+    margin-top: 6px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detailed-description-box {
+    border-color: #03a9f4;
+  }
+  
+  .description-box h3,
+  .detailed-description-box h3 {
+    margin-top: 0;
+    color: #6200ea;
+  }
+  
+  .description-box p,
+  .detailed-description-box p {
+    margin: 0;
+    font-style: italic;
+    color: #555;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .app-container {
+      padding: 10px;
+    }
+  
+    form {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .result {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    form {
+      padding: 15px;
+      gap: 10px;
+    }
+  
+    input, select {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  

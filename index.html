@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nakshatra Calculator</title>
+  <link rel="stylesheet" href="style.css"> <!-- Linking to external CSS -->
+  <link rel="icon" href="aap.jpeg" type="image/jpeg"> <!-- for .ico format -->
+</head>
+<body>
+  
+
+  <div class="app-container">
+    <form id="nakshatraForm">
+      <h1>Nakshatra Calculator</h1>
+      
+      <div>
+        <input type="text" id="name" name="name" placeholder="Name" required>
+      </div>
+      <div>
+        <input type="text" id="date" name="date" placeholder="Date of Birth (YYYY/MM/DD)" required>
+      </div>
+      <div>
+        <input type="text" id="time" name="time" placeholder="Time of Birth (HH:MM)" required>
+      </div>
+      <div>
+        <select id="gender" name="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      <button type="submit">Calculate Nakshatra</button>
+    </form>
+
+    <div id="result" class="result" style="display: none;">
+      <h2 id="nakshatra"></h2>
+      <div id="nakshatraDescription" class="description-box" style="display: none;">
+        <h3>Description</h3>
+        <p></p>
+      </div>
+      <div id="detailedDescription" class="detailed-description-box" style="display: none;">
+        <h3>Detailed Description</h3>
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('nakshatraForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const gender = document.getElementById('gender').value;
+
+      const apiUrl = `https://api.horocosmo.com/generate-birth-chart?type=birth&name=${encodeURIComponent(name)}&date=${date}&time=${time}&lat=22&lon=44&gender=${gender}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const moonData = data['data']['Data']['sign']['Moon'];
+          const nakshatra = moonData['nakshatra'];
+          const nakshatraDescription = data['data']['Asc sign traits']['Description'];
+
+          document.getElementById('nakshatra').innerText = `Nakshatra: ${nakshatra}`;
+          document.getElementById('nakshatraDescription').querySelector('p').innerText = nakshatraDescription;
+
+          // Show description box
+          document.getElementById('nakshatraDescription').style.display = 'block';
+
+          // Fetch detailed description from the API
+          const detailedApiUrl = `https://api.horocosmo.com/nakshatra?name=${nakshatra}&pada=${moonData['pada']}&gender=${gender}`;
+          return fetch(detailedApiUrl);
+        })
+        .then(response => response.json())
+        .then(detailedData => {
+          const data = detailedData.data[0];
+          const features = detailedData.data[1].Features;
+          const characteristics = detailedData.data[2].Characteristics.MaleCharacteristics;
+
+          const detailedDescription = `
+            Nakshatra Name: ${data.Pada.NakshatraName}
+            Pada Characteristics: ${data.Pada.Characteristics}
+            Degree: ${data.Pada.Degree}
+            Ruling Planet: ${data.Pada.RulingPlanet}
+            Features: ${features}
+            Male Characteristics: ${characteristics}
+          `;
+
+          document.getElementById('detailedDescription').querySelector('p').innerText = detailedDescription;
+
+          // Show detailed description box
+          document.getElementById('detailedDescription').style.display = 'block';
+          document.getElementById('result').style.display = 'block';
+        })
+        .catch(error => {
+          console.error('There was an error fetching the data!', error);
+        });
+    });
+  </script>
+
+</body>
+</html>
